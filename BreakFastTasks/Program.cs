@@ -26,10 +26,23 @@ namespace BreakFastTasks
                 heater.OnTemperatureChange += DisplayUnit.DisplayTemp;
                 heater.TargetReached += alarm.DisplayAlert;
             }
-            List<Task> heatingTasks = new List<Task>();
-            foreach (var heater in heaters)
+            List<Task> Taskss = new List<Task>();
+            foreach (var item in heaters)
             {
-               
+                Taskss.Add(item.StartBoilerAsync(10));
+            }
+
+            Task completedTask = await Task.WhenAny(Taskss);
+            int index = Taskss.IndexOf(completedTask);
+
+            Console.WriteLine($"First heater finished: {heaters[index].Location}");
+
+
+            await Task.WhenAll(Taskss);
+            foreach (var item in heaters)
+            {
+                double cost = await item.CalculateHeatingCostAsync();
+                Console.WriteLine($"Heating cost for {item.Location}: {cost:C2}");
             }
 
             //         heater.OnTemperatureChange+=display.DisplayTemp;

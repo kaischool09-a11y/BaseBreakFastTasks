@@ -21,12 +21,12 @@ namespace BreakFastTasks.EventExercise
 		public event EventHandler<TempertureEventArgs> OnTemperatureChange;
 		public event EventHandler TargetReached;
 
-		public async void StartBoilerAsync<Task>(double temperature)
+		public async Task StartBoilerAsync(double temperature)
 		{
 
 			while (currentTemperature<temperature)
 			{
-				Thread.Sleep(1500);
+				Thread.Sleep(150);
 				currentTemperature += 0.5;
 				OnTemperatureChange?.Invoke(this, new TempertureEventArgs(currentTemperature));
 				//if (OnTemperatureChange != null)
@@ -45,7 +45,7 @@ namespace BreakFastTasks.EventExercise
 		}
 		public async Task<double> CalculateHeatingCostAsync()
 		{
-            Task.Delay(3000);
+            Task.Delay(30);
 			Random rnd = new Random();
 			int num = rnd.Next(2, 21);
 			return num + this.currentTemperature * 0.18;

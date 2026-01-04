@@ -10,7 +10,8 @@ namespace BreakFastTasks.EventExercise
 	internal class WaterHeater
 	{
 		private double currentTemperature;
-		public string TempInFahrenheit
+		public string Location { get; set; }
+        public string TempInFahrenheit
 		{
 			get
 			{
@@ -20,7 +21,7 @@ namespace BreakFastTasks.EventExercise
 		public event EventHandler<TempertureEventArgs> OnTemperatureChange;
 		public event EventHandler TargetReached;
 
-		public void  StartBoiler(double temperature)
+		public async void StartBoilerAsync<Task>(double temperature)
 		{
 
 			while (currentTemperature<temperature)
@@ -42,9 +43,17 @@ namespace BreakFastTasks.EventExercise
 
 
 		}
-			
-		
-		}
+		public async Task<double> CalculateHeatingCostAsync()
+		{
+            Task.Delay(3000);
+			Random rnd = new Random();
+			int num = rnd.Next(2, 21);
+			return num + this.currentTemperature * 0.18;
+
+        }
+
+
+    }
 
 
 

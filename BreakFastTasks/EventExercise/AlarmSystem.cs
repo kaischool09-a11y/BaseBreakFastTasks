@@ -13,8 +13,8 @@ namespace BreakFastTasks.EventExercise
 			if (sender is WaterHeater w)
 			{
 				Console.WriteLine("Target Temperature Reached! Alarm Activated!");
-
-				Console.WriteLine($"current Temperture in Fahrenheit:{w.TempInFahrenheit}");
+				Console.WriteLine($"Location:{w.Location}");
+                Console.WriteLine($"current Temperture in Fahrenheit:{w.TempInFahrenheit}");
 			}
 			if(sender is House h)
 				Console.WriteLine("Open door on House");
